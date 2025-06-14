@@ -22,12 +22,29 @@ header h1 {
   font-size: 42px;
 }
 
+/* Flexbox container for albums */
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: flex-start;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  /* Hide scrollbar for Webkit browsers (optional) */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f4f4f4;
+  max-width: 910px; /* 4 albums * 220px width + 3 gaps * 10px */
+  margin: 0 auto;
+}
+
 /* Album card styling */
 .album {
   position: relative;
   width: 220px; 
   background: #fff;
   border: 1px solid #ddd;
+  flex: 0 0 220px; /* Prevent shrinking, fixed width */
 }
 
 .album img {
@@ -51,5 +68,42 @@ header h1 {
 }
 
 .overlay {
- display: none;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.85);
+  color: #fff;
+  font-size: 14px;
+  padding: 20px 12px;
+  box-sizing: border-box;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity 0.2s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.album:hover .overlay,
+.album:focus-within .overlay {
+  display: flex;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .album {
+    width: 100%;
+    /* Optionally, add margin-bottom for spacing between albums */
+    margin-bottom: 10px;
+  }
 }
